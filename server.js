@@ -17,6 +17,8 @@ const openai = new OpenAI({
 app.get('/concept', async (req, res) => {
 	try {
 		const response = await openai.chat.completions.create({
+			temperature: 1,
+			max_tokens: 1000,
 			messages: [
 				{
 					role: 'system',
@@ -41,7 +43,7 @@ app.get('/concept', async (req, res) => {
 				{
 					role: 'user',
 					content:
-						'Can you teach me some unique concepts about JavaScript, NodeJs, ExpressJs or NestJs?',
+						'Can you teach me some unique concepts about JavaScript, NodeJs, ExpressJs or NestJs? Make sure you are not repeating the same concepts too frequently',
 				},
 			],
 			model: 'gpt-4o-mini',
