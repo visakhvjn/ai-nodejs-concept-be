@@ -46,7 +46,7 @@ app.get('/concept', async (req, res) => {
 						'Can you teach me some unique concepts about JavaScript, NodeJs, ExpressJs or NestJs? Make sure you are not repeating the same concepts too frequently',
 				},
 			],
-			model: 'gpt-4o-mini',
+			model: 'gpt-4.1-nano',
 		});
 
 		// remove backticks
