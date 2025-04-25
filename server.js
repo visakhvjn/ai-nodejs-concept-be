@@ -11,17 +11,17 @@ const port = 3000;
 app.use(cors());
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Use API key from environment variables
+	apiKey: process.env.OPENAI_API_KEY, // Use API key from environment variables
 });
 
 app.get('/concept', async (req, res) => {
-  try {
-    const response = await openai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: `
-            You are supposed to teach NodeJs concepts to the viewer. 
+	try {
+		const response = await openai.chat.completions.create({
+			messages: [
+				{
+					role: 'system',
+					content: `
+            You are supposed to teach concepts related to JavaScript, NodeJs, ExpressJs or NestJs to the viewer. 
             Every time you are asked you will send a unique concept so that the viewer can revise his knowledge or learn something new.
 
             **DO NOT** return anything except the concept.
@@ -33,26 +33,29 @@ app.get('/concept', async (req, res) => {
             - Code blocks should have new line after them.
             - Code should be in <pre><code> tags.
             - Do not return any other text.
-          `,
-        },
-        {
-          role: 'user',
-          content: 'Can you teach me something about NodeJs?',
-        },
-      ],
-      model: 'gpt-4o-mini',
-    });
 
-    // remove backticks
-    const content = response.choices[0].message.content.replace(/```html/g, '');
-    res.setHeader('Content-Type', 'text/html');
-    res.end(content);
-  } catch (error) {
-    console.error('Error fetching concept:', error);
-    res.status(500).json({ error: 'Failed to fetch concept' });
-  }
+            Based on the concept generate 5 questions along with their answers that are relevant to it.
+          `,
+				},
+				{
+					role: 'user',
+					content:
+						'Can you teach me something about JavaScript, NodeJs, ExpressJs or NestJs?',
+				},
+			],
+			model: 'gpt-4o-mini',
+		});
+
+		// remove backticks
+		const content = response.choices[0].message.content.replace(/```html/g, '');
+		res.setHeader('Content-Type', 'text/html');
+		res.end(content);
+	} catch (error) {
+		console.error('Error fetching concept:', error);
+		res.status(500).json({ error: 'Failed to fetch concept' });
+	}
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+	console.log(`Server is running on http://localhost:${port}`);
 });
