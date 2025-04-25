@@ -25,6 +25,7 @@ app.get('/concept', async (req, res) => {
             Every time you are asked you will send a unique concept so that the viewer can revise his knowledge or learn something new.
 
             **DO NOT** return anything except the concept.
+            **MAKE SURE** to not return the same concept over and over again.
 
             Return it as HTML with clean formatting. For e.g.
             - <p> should have new lines after them.
@@ -40,7 +41,7 @@ app.get('/concept', async (req, res) => {
 				{
 					role: 'user',
 					content:
-						'Can you teach me something about JavaScript, NodeJs, ExpressJs or NestJs?',
+						'Can you teach me some unique concepts about JavaScript, NodeJs, ExpressJs or NestJs?',
 				},
 			],
 			model: 'gpt-4o-mini',
